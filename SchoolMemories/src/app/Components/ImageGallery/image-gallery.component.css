@@ -1,0 +1,23 @@
+.ImageGalleryImg {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.ImageGalleryImg:hover {
+    scale: 1.04;
+}
+
+.ImageGalleryFullViewerModal_ContentContainer {
+    min-height: 85vh;
+    overflow: auto;
+}
+
+.ImageGalleryFullViewerModal_ContentContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}

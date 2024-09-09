@@ -1,0 +1,16 @@
+<h1 class="text-center">School Memories</h1>
+
+<div style="margin-top: 20px;">
+    <div nz-row [nzGutter]="[16, 16]">
+        <div nz-col nzXs="24" nzSm="12" nzMd="8" nzLg="6" nzXl="4">
+            <nz-card nzHoverable class="HomeCard" [nzCover]="SeventhDayAdventistHigherSecondarySchoolAhmedabad"
+                (click)="Navigate('/SDA')">
+                <nz-card-meta nzTitle="SEVENTH DAY ADVENTIST HIGHER SECONDARY SCHOOL"
+                    nzDescription="Ahmedabad"></nz-card-meta>
+            </nz-card>
+            <ng-template #SeventhDayAdventistHigherSecondarySchoolAhmedabad>
+                <img alt="example" src="https://i.imgur.com/h21tDlM.png" />
+            </ng-template>
+        </div>
+    </div>
+</div>

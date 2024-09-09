@@ -1,0 +1,45 @@
+<h1 class="text-center">{{UIDisplayHeader}}</h1>
+
+<div>
+    <nz-radio-group [(ngModel)]="SelectedTypeOfImages" nzButtonStyle="solid">
+        <label nz-radio-button [nzValue]="imageType" *ngFor="let imageType of TypesOfImages">{{imageType}}</label>
+    </nz-radio-group>
+</div>
+
+<div style="margin-top: 20px;">
+    <a nz-button nzType="primary" [href]="ImageGallery_TelegramLink" target="_blank">Telegram</a>
+    <a nz-button nzType="primary" [href]="ImageGallery_PDFLink" style="margin-left: 20px;" target="_blank">PDF</a>
+</div>
+
+<div style="margin-top: 20px;">
+    <div nz-row [nzGutter]="[16, 16]">
+        <ng-container *ngFor="let image of ImageGalleryData">
+            <div nz-col nzXs="12" nzSm="8" nzMd="6" nzLg="4" nzXl="4" *ngIf="GetImageByType(image)">
+                <img loading="lazy" [src]="GetImageByType(image)" class="ImageGalleryImg"
+                    (click)="Show_ImageGalleryFullViewerModal(image)">
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+
+
+<nz-modal nzCentered nzClassName="ImageGalleryFullViewerModal" [(nzVisible)]="ImageGalleryFullViewerModal_IsVisible"
+    nzWidth="100vw" (nzOnCancel)="ImageGalleryFullViewerModal_HandleCancle()"
+    (nzOnOk)="ImageGalleryFullViewerModal_HandleOk()">
+    <ng-container *nzModalContent>
+        <div class="ImageGalleryFullViewerModal_ContentContainer">
+            <div style="flex-grow: 1; display: flex; justify-content: center; align-items: center;">
+                <ng-container *ngIf="SelectedImage">
+                    <img [src]="GetImageByType(SelectedImage)" style="width: 100%; max-height: 80vh;" (click)="Next()">
+                </ng-container>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 5px;">
+                <div><button nz-button nzType="primary" (click)="Previous()">Previous</button></div>
+                <div><button nz-button nzType="primary" (click)="Next()">Next</button></div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *nzModalFooter>
+    </ng-container>
+</nz-modal>

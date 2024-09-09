@@ -1,0 +1,22 @@
+<h1 class="text-center">SEVENTH DAY ADVENTIST HIGHER SECONDARY SCHOOL</h1>
+<h4 class="text-center">Ahmedabad</h4>
+
+
+<h2>Pathways</h2>
+<hr>
+<div style="margin-top: 20px;">
+    <div nz-row [nzGutter]="[16, 16]">
+        <ng-container *ngIf="SeventhDayAdventistHigherSecondarySchoolAhmedabadData">
+            <div nz-col nzXs="24" nzSm="12" nzMd="8" nzLg="6" nzXl="4"
+                *ngFor="let pathways of SeventhDayAdventistHigherSecondarySchoolAhmedabadData.Pathways">
+                <nz-card nzHoverable class="PathwaysCard" [nzCover]="SeventhDayAdventistHigherSecondarySchoolAhmedabad"
+                    (click)="OpenImageGallery('SeventhDayAdventistHigherSecondarySchoolAhmedabad', 'Pathways'+pathways.Year)">
+                    <nz-card-meta nzTitle="Pathways - {{pathways.Year}}"></nz-card-meta>
+                </nz-card>
+                <ng-template #SeventhDayAdventistHigherSecondarySchoolAhmedabad>
+                    <img alt="example" [src]="pathways.CoverImage" />
+                </ng-template>
+            </div>
+        </ng-container>
+    </div>
+</div>
