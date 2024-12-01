@@ -1,5 +1,18 @@
+:root {
+    --menuBackgroundColor-gs-menu: #f5f5f5;
+    --mobileMenuBackgroundColor-gs-menu: #f5f5f5;
+    --menuHeight-gs-menu: 70px;
+    --mobileMenuWidth-gs-menu: 200px;
+    --menuLinksColor-gs-menu: black;
+    --menuLinksHoverColor-gs-menu: rgb(21, 21, 21);
+    --activeLinksColor-gs-menu: grey;
+    --activeLinkLineColor-gs-menu: grey;
+    --activeLinkLineBottom-gs-menu: -22px;
+    --mobileMenuExitDivColor-gs-menu: grey;
+}
+
 body {
-    background-color: #1E1E1E;
+    background-color: #fbfbfb;
     font-family: "Roboto Condensed", sans-serif;
     font-optical-sizing: auto;
     font-weight: 100;

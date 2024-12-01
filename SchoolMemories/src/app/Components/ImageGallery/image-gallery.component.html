@@ -12,34 +12,45 @@
 </div>
 
 <div style="margin-top: 20px;">
-    <div nz-row [nzGutter]="[16, 16]">
-        <ng-container *ngFor="let image of ImageGalleryData">
-            <div nz-col nzXs="12" nzSm="8" nzMd="6" nzLg="4" nzXl="4" *ngIf="GetImageByType(image)">
-                <img loading="lazy" [src]="GetImageByType(image)" class="ImageGalleryImg"
-                    (click)="Show_ImageGalleryFullViewerModal(image)">
-            </div>
-        </ng-container>
-    </div>
-</div>
-
-
-
-<nz-modal nzCentered nzClassName="ImageGalleryFullViewerModal" [(nzVisible)]="ImageGalleryFullViewerModal_IsVisible"
-    nzWidth="100vw" (nzOnCancel)="ImageGalleryFullViewerModal_HandleCancle()"
-    (nzOnOk)="ImageGalleryFullViewerModal_HandleOk()">
-    <ng-container *nzModalContent>
-        <div class="ImageGalleryFullViewerModal_ContentContainer">
-            <div style="flex-grow: 1; display: flex; justify-content: center; align-items: center;">
-                <ng-container *ngIf="SelectedImage">
-                    <img [src]="GetImageByType(SelectedImage)" style="width: 100%; max-height: 80vh;" (click)="Next()">
-                </ng-container>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 5px;">
-                <div><button nz-button nzType="primary" (click)="Previous()">Previous</button></div>
-                <div><button nz-button nzType="primary" (click)="Next()">Next</button></div>
-            </div>
+    <nz-image-group>
+        <div nz-row [nzGutter]="[16, 16]">
+            <ng-container *ngFor="let image of ImageGalleryData">
+                <div nz-col nzXs="12" nzSm="8" nzMd="6" nzLg="4" nzXl="4">
+                    <img nz-image loading="lazy" [nzSrc]="GetImageByType(image)" class="ImageGalleryImg"
+                        [nzPlaceholder]="GetCurrentPlaceHolderImage()">
+                </div>
+            </ng-container>
         </div>
+    </nz-image-group>
+</div>
+<!-- <div *ngIf="ImageGalleryFullViewerModal_IsVisible" class="ImageFullScreenContainer">
+    <div class="CloseButton" (click)="ImageGalleryFullViewerModal_HandleCancle()">
+        <span style="cursor: pointer;" nz-icon nzType="close" nzTheme="outline"></span>
+    </div>
+    <ng-container *ngIf="SelectedImage">
+        <img nz-image [nzSrc]="GetImageByType(SelectedImage)" (click)="Next()"
+            nzPlaceholder="https://i.imgur.com/OM81fWb.png">
     </ng-container>
-    <ng-container *nzModalFooter>
-    </ng-container>
-</nz-modal>
+    <div class="FullScreenButtonContainer">
+        <span class="button" (click)="Previous()"><ng-container *ngTemplateOutlet="SVG_Left"></ng-container></span>
+        <span class="button" (click)="Next()"><ng-container *ngTemplateOutlet="SVG_Right"></ng-container></span>
+    </div>
+</div> -->
+
+<ng-template #SVG_Right>
+    <svg viewBox="64 64 896 896" focusable="false" fill="currentColor" width="1em" height="1em" data-icon="right-circle"
+        aria-hidden="true">
+        <path
+            d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm154.7 454.5l-246 178c-5.3 3.8-12.7 0-12.7-6.5v-46.9c0-10.2 4.9-19.9 13.2-25.9L566.6 512 421.2 406.8c-8.3-6-13.2-15.6-13.2-25.9V334c0-6.5 7.4-10.3 12.7-6.5l246 178c4.4 3.2 4.4 9.8 0 13z">
+        </path>
+    </svg>
+</ng-template>
+
+<ng-template #SVG_Left>
+    <svg viewBox="64 64 896 896" focusable="false" fill="currentColor" width="1em" height="1em" data-icon="left-circle"
+        aria-hidden="true">
+        <path
+            d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm104 316.9c0 10.2-4.9 19.9-13.2 25.9L457.4 512l145.4 105.2c8.3 6 13.2 15.6 13.2 25.9V690c0 6.5-7.4 10.3-12.7 6.5l-246-178a7.95 7.95 0 010-12.9l246-178a8 8 0 0112.7 6.5v46.8z">
+        </path>
+    </svg>
+</ng-template>

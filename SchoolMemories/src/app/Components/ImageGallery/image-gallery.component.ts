@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ImageGalleryModel } from '../../Models/ImageGalleryModel';
 import { JsonsService } from '../../Services/jsons.service';
@@ -9,6 +9,8 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzImageModule } from 'ng-zorro-antd/image';
 
 @Component({
   selector: 'app-image-gallery',
@@ -20,7 +22,9 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
     NzCardModule,
     NzGridModule,
     NzModalModule,
-    NzButtonModule
+    NzButtonModule,
+    NzIconModule,
+    NzImageModule
   ],
   templateUrl: './image-gallery.component.html',
   styleUrl: './image-gallery.component.css'
@@ -70,34 +74,24 @@ export class ImageGalleryComponent {
   }
 
   GetImageByType(image: any) {
-    return image[this.SelectedTypeOfImages];
+    let linkToSend: string = image[this.SelectedTypeOfImages];
+    image.ImageLoading = true;
+    return linkToSend;
   }
 
-  ImageGalleryFullViewerModal_HandleCancle() {
-    this.ImageGalleryFullViewerModal_IsVisible = false;
+  JsonString(data: any) {
+    return JSON.stringify(data);
   }
 
-  ImageGalleryFullViewerModal_HandleOk() {
-    this.ImageGalleryFullViewerModal_IsVisible = false;
-  }
-
-  Show_ImageGalleryFullViewerModal(image: ImageGalleryModel) {
-    this.ImageGalleryFullViewerModal_IsVisible = true;
-    this.SelectedImage = image;
-  }
-
-  Previous() {
-    let currentIndex = this.ImageGalleryData.findIndex(x => x.ImageNumber == this.SelectedImage?.ImageNumber);
-    if (currentIndex != 0) {
-      this.SelectedImage = this.ImageGalleryData[currentIndex - 1];
+  GetCurrentPlaceHolderImage() {
+    switch (this.SelectedTypeOfImages) {
+      case "Instagram":
+        return "https://i.imgur.com/gzowtFy.gif";
+      case "Original":
+        return "https://i.imgur.com/tH3r3aB.gif";
+      case "Cropped":
+        return "https://i.imgur.com/tH3r3aB.gif";
     }
-  }
-
-  Next() {
-    let currentIndex = this.ImageGalleryData.findIndex(x => x.ImageNumber == this.SelectedImage?.ImageNumber);
-
-    if (currentIndex + 1 < this.ImageGalleryData.length) {
-      this.SelectedImage = this.ImageGalleryData[currentIndex + 1];
-    }
+    return "https://i.imgur.com/gzowtFy.gif";
   }
 }

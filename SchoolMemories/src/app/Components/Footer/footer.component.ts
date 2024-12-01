@@ -4,6 +4,13 @@ import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { RouterModule } from '@angular/router';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import {
+  InstagramFill,
+  GithubFill,
+  LinkedinFill,
+  RedditSquareFill
+} from '@ant-design/icons-angular/icons';
+import { NzIconService } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'app-footer',
@@ -13,7 +20,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     CommonModule,
     RouterModule,
     NzGridModule,
-    NzIconModule
+    NzIconModule,
   ],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css'
@@ -30,7 +37,12 @@ export class FooterComponent {
   linksPart1: any = [];
   linksPart2: any = [];
 
-  constructor() { }
+  constructor(private _NzIconService: NzIconService) {
+    _NzIconService.addIcon(InstagramFill);
+    _NzIconService.addIcon(GithubFill);
+    _NzIconService.addIcon(LinkedinFill);
+    _NzIconService.addIcon(RedditSquareFill);
+  }
 
   ngOnInit(): void {
     for (var i = 0; i < this.links.length; i++) {

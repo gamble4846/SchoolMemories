@@ -4,6 +4,7 @@
     height: 100%;
     cursor: pointer;
     transition: 0.1s;
+    border-radius: 5px;
 }
 
 .ImageGalleryImg:hover {
@@ -20,4 +21,50 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+}
+
+.ImageFullScreenContainer {
+    background-color: #000000c4;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    z-index: 12;
+}
+
+.ImageFullScreenContainer .FullScreenButtonContainer {
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 40px;
+}
+
+.ImageFullScreenContainer .FullScreenButtonContainer .button {
+    cursor: pointer;
+    padding: 10px;
+}
+
+.ImageFullScreenContainer .FullScreenButtonContainer .button:hover {
+    color: #1890ff;
+}
+
+.ImageFullScreenContainer img {
+    height: 80%;
+    max-width: 90%;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+    border-radius: 5px;
+}
+
+.ImageFullScreenContainer .CloseButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 40px;
+    color: white;
 }
