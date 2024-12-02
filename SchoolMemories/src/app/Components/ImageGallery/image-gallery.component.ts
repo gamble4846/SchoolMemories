@@ -79,6 +79,7 @@ export class ImageGalleryComponent {
         let year = this.Type.toLowerCase().replace("pathways", "");
         this.UIDisplayHeader = "Pathways - " + year;
         this._JsonsService.GetSeventhDayAdventistHigherSecondarySchoolAhmedabadJsonData().subscribe((response) => {
+          console.log(response);
           let yearPathwaysData = response.Pathways.find(x => x.Year == year);
           if (yearPathwaysData) {
             this.ImageGalleryData = yearPathwaysData.ImageGallery;
@@ -121,6 +122,12 @@ export class ImageGalleryComponent {
     return linkToSend;
   }
 
+  GetSmallImageByType(image: any) {
+    let linkToSend: string = image[this.SelectedTypeOfImages + "Small"];
+    image.ImageLoading = true;
+    return linkToSend;
+  }
+
   OnImageClick(index: number): void {
     console.log(this.PreviewImages, index);
     this.nzImageService.preview(this.PreviewImages).switchTo(index);
@@ -143,11 +150,11 @@ export class ImageGalleryComponent {
   }
 
   CancelAllRequests() {
-    if (window.stop !== undefined) {
-      window.stop();
-    }
-    else if (document.execCommand !== undefined) {
-      document.execCommand("Stop", false);
-    }
+    // if (window.stop !== undefined) {
+    //   window.stop();
+    // }
+    // else if (document.execCommand !== undefined) {
+    //   document.execCommand("Stop", false);
+    // }
   }
 }

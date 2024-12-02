@@ -32,6 +32,7 @@ export class SeventhdayAhmedabadComponent {
   UpdateSeventhDayAdventistHigherSecondarySchoolAhmedabadData() {
     this._JsonsService.GetSeventhDayAdventistHigherSecondarySchoolAhmedabadJsonData().subscribe((response: SeventhDayAdventistHigherSecondarySchoolAhmedabadModel) => {
       this.SeventhDayAdventistHigherSecondarySchoolAhmedabadData = response;
+      console.log(this.SeventhDayAdventistHigherSecondarySchoolAhmedabadData);
     })
   }
 

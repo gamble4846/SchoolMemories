@@ -1,6 +1,9 @@
 export interface ImageGalleryModel {
     ImageNumber: string,
-    InstagramImage: string | null,
-    OriginalImage: string | null,
-    CroppedImage: string | null
+    Instagram: string | null,
+    Original: string | null,
+    Cropped: string | null,
+    InstagramSmall: string | null,
+    OriginalSmall: string | null,
+    CroppedSmall: string | null
 }
