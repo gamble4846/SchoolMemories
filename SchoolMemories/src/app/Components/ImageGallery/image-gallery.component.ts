@@ -38,6 +38,7 @@ export class ImageGalleryComponent {
   ImageGalleryFullViewerModal_IsVisible: boolean = false;
   SelectedImage: ImageGalleryModel | undefined;
   PreviewImages: Array<any> = [];
+  ImageGalleryData_ToShow: Array<ImageGalleryModel> = [];
 
   UIDisplayHeader: string = "";
   TypesOfImages: Array<string> = [];
@@ -60,6 +61,16 @@ export class ImageGalleryComponent {
   ImageTypeChanged() {
     this.CancelAllRequests();
     this.UpdatePreviewImages();
+    this.ImageGalleryData_ToShow = [...[]];
+    this.loadMoreImages();
+  }
+
+  loadMoreImages(): void {
+    const itemsToLoad = 20;
+    const startIndex = this.ImageGalleryData_ToShow.length;
+    const newItems = this.ImageGalleryData.slice(startIndex, startIndex + itemsToLoad);
+    this.ImageGalleryData_ToShow.push(...newItems);
+    this.ImageGalleryData_ToShow = [...this.ImageGalleryData_ToShow];
   }
 
   AfterQueryParamsUpdate() {
@@ -75,11 +86,22 @@ export class ImageGalleryComponent {
             this.ImageGallery_PDFLink = yearPathwaysData.ImageGalleryPDFLink;
             this.TypesOfImages = ['Instagram', 'Original', 'Cropped'];
             this.SelectedTypeOfImages = "Cropped";
-            this.CancelAllRequests();
+
             this.UpdatePreviewImages();
+            this.ImageGalleryData_ToShow = [...[]];
+            this.loadMoreImages();
           }
         });
       }
+    }
+  }
+
+  GetLoadMoreImageLinkByCurrentType() {
+    if (this.SelectedTypeOfImages == 'Instagram') {
+      return "https://i.imgur.com/S2OIK7n.png";
+    }
+    else {
+      return "https://i.imgur.com/5MsiKhq.png";
     }
   }
 

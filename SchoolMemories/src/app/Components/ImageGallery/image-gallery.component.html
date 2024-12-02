@@ -14,29 +14,22 @@
 <div style="margin-top: 20px;">
     <nz-image-group #imageGroup>
         <div nz-row [nzGutter]="[16, 16]">
-            <ng-container *ngFor="let image of ImageGalleryData; let i = index">
+            <ng-container *ngFor="let image of ImageGalleryData_ToShow; let i = index">
                 <div nz-col nzXs="12" nzSm="8" nzMd="6" nzLg="4" nzXl="4">
                     <img nz-image loading="lazy" [nzSrc]="GetImageByType(image)" class="ImageGalleryImg"
                         [nzPlaceholder]="GetCurrentPlaceHolderImage()" [nzDisablePreview]="true"
                         (click)="OnImageClick(i)">
                 </div>
             </ng-container>
+            <div nz-col nzXs="12" nzSm="8" nzMd="6" nzLg="4" nzXl="4" (click)="loadMoreImages()"
+                *ngIf="ImageGalleryData_ToShow.length < ImageGalleryData.length">
+                <img nz-image loading="lazy" [nzSrc]="GetLoadMoreImageLinkByCurrentType()"
+                    class="ImageGalleryImg loadMore" [nzPlaceholder]="GetCurrentPlaceHolderImage()"
+                    [nzDisablePreview]="true">
+            </div>
         </div>
     </nz-image-group>
 </div>
-<!-- <div *ngIf="ImageGalleryFullViewerModal_IsVisible" class="ImageFullScreenContainer">
-    <div class="CloseButton" (click)="ImageGalleryFullViewerModal_HandleCancle()">
-        <span style="cursor: pointer;" nz-icon nzType="close" nzTheme="outline"></span>
-    </div>
-    <ng-container *ngIf="SelectedImage">
-        <img nz-image [nzSrc]="GetImageByType(SelectedImage)" (click)="Next()"
-            nzPlaceholder="https://i.imgur.com/OM81fWb.png">
-    </ng-container>
-    <div class="FullScreenButtonContainer">
-        <span class="button" (click)="Previous()"><ng-container *ngTemplateOutlet="SVG_Left"></ng-container></span>
-        <span class="button" (click)="Next()"><ng-container *ngTemplateOutlet="SVG_Right"></ng-container></span>
-    </div>
-</div> -->
 
 <ng-template #SVG_Right>
     <svg viewBox="64 64 896 896" focusable="false" fill="currentColor" width="1em" height="1em" data-icon="right-circle"
