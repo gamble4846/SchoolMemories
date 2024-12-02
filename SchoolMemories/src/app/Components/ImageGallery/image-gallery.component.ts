@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ImageGalleryModel } from '../../Models/ImageGalleryModel';
 import { JsonsService } from '../../Services/jsons.service';
@@ -10,7 +10,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzImageModule } from 'ng-zorro-antd/image';
+import { NzImageDirective, NzImageGroupComponent, NzImageModule, NzImageService } from 'ng-zorro-antd/image';
 
 @Component({
   selector: 'app-image-gallery',
@@ -30,11 +30,14 @@ import { NzImageModule } from 'ng-zorro-antd/image';
   styleUrl: './image-gallery.component.css'
 })
 export class ImageGalleryComponent {
+  private nzImageService = inject(NzImageService);
+
   SchoolName: string | undefined;
   Type: string | undefined;
   ImageGalleryData: Array<ImageGalleryModel> = [];
   ImageGalleryFullViewerModal_IsVisible: boolean = false;
   SelectedImage: ImageGalleryModel | undefined;
+  PreviewImages: Array<any> = [];
 
   UIDisplayHeader: string = "";
   TypesOfImages: Array<string> = [];
@@ -54,6 +57,11 @@ export class ImageGalleryComponent {
     });
   }
 
+  ImageTypeChanged() {
+    this.CancelAllRequests();
+    this.UpdatePreviewImages();
+  }
+
   AfterQueryParamsUpdate() {
     if (this.SchoolName == "SeventhDayAdventistHigherSecondarySchoolAhmedabad") {
       if (this.Type && this.Type.toLowerCase().includes("pathways")) {
@@ -67,16 +75,33 @@ export class ImageGalleryComponent {
             this.ImageGallery_PDFLink = yearPathwaysData.ImageGalleryPDFLink;
             this.TypesOfImages = ['Instagram', 'Original', 'Cropped'];
             this.SelectedTypeOfImages = "Cropped";
+            this.CancelAllRequests();
+            this.UpdatePreviewImages();
           }
         });
       }
     }
   }
 
+  UpdatePreviewImages() {
+    this.PreviewImages = [...[]];
+
+    this.ImageGalleryData.forEach(image => {
+      this.PreviewImages.push({
+        src: this.GetImageByType(image)
+      });
+    });
+  }
+
   GetImageByType(image: any) {
     let linkToSend: string = image[this.SelectedTypeOfImages];
     image.ImageLoading = true;
     return linkToSend;
+  }
+
+  OnImageClick(index: number): void {
+    console.log(this.PreviewImages, index);
+    this.nzImageService.preview(this.PreviewImages).switchTo(index);
   }
 
   JsonString(data: any) {
@@ -93,5 +118,14 @@ export class ImageGalleryComponent {
         return "https://i.imgur.com/tH3r3aB.gif";
     }
     return "https://i.imgur.com/gzowtFy.gif";
+  }
+
+  CancelAllRequests() {
+    if (window.stop !== undefined) {
+      window.stop();
+    }
+    else if (document.execCommand !== undefined) {
+      document.execCommand("Stop", false);
+    }
   }
 }

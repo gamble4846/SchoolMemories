@@ -1,7 +1,7 @@
 <h1 class="text-center">{{UIDisplayHeader}}</h1>
 
 <div>
-    <nz-radio-group [(ngModel)]="SelectedTypeOfImages" nzButtonStyle="solid">
+    <nz-radio-group [(ngModel)]="SelectedTypeOfImages" nzButtonStyle="solid" (ngModelChange)="ImageTypeChanged()">
         <label nz-radio-button [nzValue]="imageType" *ngFor="let imageType of TypesOfImages">{{imageType}}</label>
     </nz-radio-group>
 </div>
@@ -12,12 +12,13 @@
 </div>
 
 <div style="margin-top: 20px;">
-    <nz-image-group>
+    <nz-image-group #imageGroup>
         <div nz-row [nzGutter]="[16, 16]">
-            <ng-container *ngFor="let image of ImageGalleryData">
+            <ng-container *ngFor="let image of ImageGalleryData; let i = index">
                 <div nz-col nzXs="12" nzSm="8" nzMd="6" nzLg="4" nzXl="4">
                     <img nz-image loading="lazy" [nzSrc]="GetImageByType(image)" class="ImageGalleryImg"
-                        [nzPlaceholder]="GetCurrentPlaceHolderImage()">
+                        [nzPlaceholder]="GetCurrentPlaceHolderImage()" [nzDisablePreview]="true"
+                        (click)="OnImageClick(i)">
                 </div>
             </ng-container>
         </div>
